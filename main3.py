@@ -15,7 +15,14 @@ APP_NAME = "DeepL Translator NEO"
 
 
 # ボットトークンとソケットモードハンドラーを使ってアプリを初期化します
-app = App(token=os.environ.get("SLACK_BOT_TOKEN"))
+# app = App(token=os.environ.get("SLACK_BOT_TOKEN"))
+
+# ボットトークンと署名シークレットを使ってアプリを初期化します
+app = App(
+    token=os.environ.get("SLACK_BOT_TOKEN"),
+    signing_secret=os.environ.get("SLACK_SIGNING_SECRET")
+)
+
 
 
 # 'open_modal' という callback_id のショートカットをリッスン
@@ -378,4 +385,4 @@ def try_again(ack, body, action, client):
 
 # アプリを起動します
 if __name__ == "__main__":
-    SocketModeHandler(app, os.environ["SLACK_APP_TOKEN"]).start()
+    app.start(port=int(os.environ.get("PORT", 3000)))
