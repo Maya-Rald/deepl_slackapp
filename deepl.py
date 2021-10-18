@@ -27,23 +27,3 @@ def deepl(text, lang):
   print(f"translated text: \n{result_text}")
 
   return result_text
-
-
-
-# if __name__ == "__main__":
-
-
-  # text = input("text: ")
-  # choice = int(input("1: 日本語    2: English：　"))
-  # deepl(text, choice)
-
-
-
-
-# DeepL APIの出力例
-# {
-#   'translations': [{
-#     'detected_source_language': 'EN',
-#     'text': 'こんにちは'
-#   }]
-# }

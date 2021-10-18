@@ -8,14 +8,9 @@
 
 import os
 from slack_bolt import App
-from slack_bolt.adapter.socket_mode import SocketModeHandler
 from deepl import deepl
 
 APP_NAME = "DeepL Translator NEO"
-
-
-# ボットトークンとソケットモードハンドラーを使ってアプリを初期化します
-# app = App(token=os.environ.get("SLACK_BOT_TOKEN"))
 
 # ボットトークンと署名シークレットを使ってアプリを初期化します
 app = App(
@@ -24,15 +19,15 @@ app = App(
 )
 
 
-
-# 'open_modal' という callback_id のショートカットをリッスン
-@app.shortcut("test_deepl")
+# 'deepl_translator' という callback_id のショートカットをリッスン
+@app.shortcut("deepl_translator")
 def open_modal(ack, shortcut, client):
     global trigger_id
     trigger_id=shortcut["trigger_id"]
+
     # ショートカットのリクエストを確認
     ack()
-    # print(shortcut)
+
     # 組み込みのクライアントを使って views_open メソッドを呼び出す
     client.views_open(
         trigger_id=trigger_id,
@@ -258,10 +253,6 @@ def handle_submission(ack, body, client, view, logger):
 
     print(user_icon)
     print(user_name)
-
-
-
-
 
 
 # Send Button
