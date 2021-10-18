@@ -1,7 +1,6 @@
 import os
 import requests
-import json
-from urllib.parse import urlencode
+
 
 DEEPL_AUTH_KEY = os.environ["DEEPL_AUTH_KEY"]
 
