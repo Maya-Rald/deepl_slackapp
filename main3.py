@@ -374,15 +374,6 @@ def try_again(ack, body, action, client):
 
 
 
-########## REACTION ##########
-@app.event("team_join")
-def ask_for_introduction(event, say):
-    welcome_channel_id = "C12345"
-    user_id = event["user"]
-    text = f"Welcome to the team, <@{user_id}>! 🎉 You can introduce yourself in this channel."
-    say(text=text, channel=welcome_channel_id)
-
-
 
 
 # アプリを起動します
