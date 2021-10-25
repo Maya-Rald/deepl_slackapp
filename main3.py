@@ -18,6 +18,7 @@ app = App(
     signing_secret=os.environ.get("SLACK_SIGNING_SECRET")
 )
 
+########## SHORT_CUT ##########
 
 # 'deepl_translator' という callback_id のショートカットをリッスン
 @app.shortcut("deepl_translator")
@@ -37,7 +38,7 @@ def open_modal(ack, shortcut, client):
             "callback_id": "run_translation",
             "title": {"type": "plain_text","text": APP_NAME},
             "close": {"type": "plain_text","text": "Close"},
-            "submit": {"type": "plain_text","text": "Translate"},
+            "submit": {"type": "plain_text","text": "Translate/翻訳"},
 
             "blocks": [
                 {
@@ -305,7 +306,7 @@ def try_again(ack, body, action, client):
             "callback_id": "run_translation",
             "title": {"type": "plain_text","text": APP_NAME},
             "close": {"type": "plain_text","text": "Close"},
-            "submit": {"type": "plain_text","text": "Translate"},
+            "submit": {"type": "plain_text","text": "Translate/翻訳"},
             "blocks": [
                 {
                     "type": "input",
@@ -363,13 +364,23 @@ def try_again(ack, body, action, client):
                     },
                     "label": {
                         "type": "plain_text",
-                        "text": "Translate to ...",
+                        "text": "Translate to / 翻訳先の言語",
                         "emoji": True
                     }
                 }
             ]
         }
     )
+
+
+
+########## REACTION ##########
+@app.event("team_join")
+def ask_for_introduction(event, say):
+    welcome_channel_id = "C12345"
+    user_id = event["user"]
+    text = f"Welcome to the team, <@{user_id}>! 🎉 You can introduce yourself in this channel."
+    say(text=text, channel=welcome_channel_id)
 
 
 
