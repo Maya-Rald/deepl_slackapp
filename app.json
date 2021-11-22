@@ -1,0 +1,28 @@
+{
+  "name": "DeepL JP-EN Translator for Slack",
+  
+  "description": "DeepL Japanese-English translator for Slack",
+  
+  "website": "https://github.com/Maya-Rald/deepl_slackapp",
+  
+  "repository": "https://github.com/Maya-Rald/deepl_slackapp",
+    
+  "keywords": [
+    "python", 
+    "deepl", 
+    "slack"
+  ],
+  
+  "env": {
+    "DEEPL_AUTH_KEY": {
+      "description": "DeepL API Auth Key (https://www.deepl.com/pro-account.html)"
+    },
+    "SLACK_BOT_TOKEN": {
+      "description": "Slack App Bot Token"
+    },
+    "SLACK_SIGNING_SECRET": {
+      "description": "Slack Signing Secret"
+    }
+  }
+  
+}
