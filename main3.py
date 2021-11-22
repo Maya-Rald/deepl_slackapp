@@ -1,24 +1,17 @@
 # Version 3
 
-# 送信者になりすまして送信する。(chat:write:customize)
-# プライベートで使用するには、アプリを追加する必要あり。
-
-# メンションつけたい。。。
-# 絵文字つけたい
-
 import os
 from slack_bolt import App
 from deepl import deepl
 
 APP_NAME = "DeepL Translator NEO"
 
-# ボットトークンと署名シークレットを使ってアプリを初期化します
+# ボットトークンと署名シークレットを使ってアプリを初期化
 app = App(
     token=os.environ.get("SLACK_BOT_TOKEN"),
     signing_secret=os.environ.get("SLACK_SIGNING_SECRET")
 )
 
-########## SHORT_CUT ##########
 
 # 'deepl_translator' という callback_id のショートカットをリッスン
 @app.shortcut("deepl_translator")
@@ -80,6 +73,8 @@ def open_modal(ack, shortcut, client):
                             "value": "EN"
                         },
                         "options": [
+                            ###### 対応言語を追加する場合はここに追記。######
+                            #　try_again関数にも同内容の修正を行うことを忘れずに
                             {
                                 "text": {
                                     "type": "plain_text",
@@ -109,7 +104,7 @@ def open_modal(ack, shortcut, client):
     )
 
 
-# 翻訳中＆結果表示
+# Translate/翻訳　ボタンで起動　（翻訳中＆結果表示）
 @app.view("run_translation")
 def handle_submission(ack, body, client, view, logger):
     global text
@@ -148,6 +143,7 @@ def handle_submission(ack, body, client, view, logger):
     })
  
     # TextをDeepL APIを使用して翻訳する
+    # deepl.pyからdeepl関数呼び出し
     result_text = deepl(text, lang)
 
     # 翻訳結果の表示
@@ -256,7 +252,7 @@ def handle_submission(ack, body, client, view, logger):
     print(user_name)
 
 
-# Send Button
+# Send　ボタンで起動　（選択されたチャンネルに送信）
 @app.view("send_to_channel")
 def send_submission(ack, view, body, say, client):
     
@@ -291,7 +287,7 @@ def send_submission(ack, view, body, say, client):
     
     
 
-# Retry Translation
+# Retry Translation/翻訳のやり直し ボタンで起動
 @app.action("try_again")
 def try_again(ack, body, action, client):
     ack()
@@ -315,7 +311,7 @@ def try_again(ack, body, action, client):
                         "type": "plain_text_input",
                         "multiline": True,
                         "action_id": "content",
-                        "initial_value": text
+                        "initial_value": text  # 入力していた原文を維持
                     },
                     "label": {
                         "type": "plain_text",
@@ -344,6 +340,8 @@ def try_again(ack, body, action, client):
                             "value": "EN"
                         },
                         "options": [
+                            ###### 対応言語を追加する場合はここに追記。######
+                            #　open_modal関数と同内容の修正を行うこと
                             {
                                 "text": {
                                     "type": "plain_text",
@@ -376,6 +374,6 @@ def try_again(ack, body, action, client):
 
 
 
-# アプリを起動します
+# アプリを起動
 if __name__ == "__main__":
     app.start(port=int(os.environ.get("PORT", 3000)))
