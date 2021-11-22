@@ -24,6 +24,5 @@ def deepl(text, lang):
   data = response.json()["translations"][0]
   result_text = data["text"]
 
-  print(f"translated text: \n{result_text}")
 
   return result_text
