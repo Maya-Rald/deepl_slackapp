@@ -1,5 +1,3 @@
-# Version 3
-
 import os
 from slack_bolt import App
 from deepl import deepl
